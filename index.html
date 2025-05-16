@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-gray-50">
+    <div class="p-8">
+        <!-- Header -->
+        <div class="mb-8">
+            <h1 class="text-2xl font-bold text-gray-800">Dashboard</h1>
+        </div>
+
+        <!-- Top Stats -->
+        <div class="mb-8">
+            <div class="flex items-center gap-2 mb-2">
+                <h2 class="text-3xl font-bold">2,340</h2>
+                <span class="text-green-500 text-sm">+1.25% <span class="text-gray-500">vs last week</span></span>
+            </div>
+        </div>
+
+        <!-- Main Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <!-- Content by Stage -->
+            <div class="bg-white p-6 rounded-xl shadow-sm">
+                <h3 class="text-lg font-semibold mb-4">Content by Stage</h3>
+                <div class="h-64">
+                    <canvas id="stageChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Content Planning -->
+            <div class="bg-white p-6 rounded-xl shadow-sm">
+                <h3 class="text-lg font-semibold mb-4">Content Planning</h3>
+                <div class="h-64">
+                    <canvas id="planningChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Content by Type -->
+            <div class="bg-white p-6 rounded-xl shadow-sm">
+                <h3 class="text-lg font-semibold mb-4">Content by Type</h3>
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between">
+                        <span class="text-gray-600">Instagram</span>
+                        <div class="flex items-center gap-2">
+                            <div class="w-48 h-2 bg-gray-200 rounded-full overflow-hidden">
+                                <div class="w-4/5 h-full bg-blue-500 rounded-full"></div>
+                            </div>
+                            <span class="text-sm text-gray-600">80%</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span class="text-gray-600">Facebook</span>
+                        <div class="flex items-center gap-2">
+                            <div class="w-48 h-2 bg-gray-200 rounded-full overflow-hidden">
+                                <div class="w-3/5 h-full bg-green-500 rounded-full"></div>
+                            </div>
+                            <span class="text-sm text-gray-600">60%</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span class="text-gray-600">TikTok</span>
+                        <div class="flex items-center gap-2">
+                            <div class="w-48 h-2 bg-gray-200 rounded-full overflow-hidden">
+                                <div class="w-2/5 h-full bg-yellow-500 rounded-full"></div>
+                            </div>
+                            <span class="text-sm text-gray-600">40%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- My Contacts -->
+            <div class="bg-white p-6 rounded-xl shadow-sm">
+                <h3 class="text-lg font-semibold mb-4">My Contacts</h3>
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 bg-gray-200 rounded-full"></div>
+                            <div>
+                                <p class="font-medium">Sarah Chen</p>
+                                <p class="text-sm text-gray-500">Financial Lead</p>
+                            </div>
+                        </div>
+                        <button class="px-3 py-1 text-sm text-blue-600 border border-blue-600 rounded-full">Contact</button>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 bg-gray-200 rounded-full"></div>
+                            <div>
+                                <p class="font-medium">Alex Morgan</p>
+                                <p class="text-sm text-gray-500">Senior Tax CPA</p>
+                            </div>
+                        </div>
+                        <button class="px-3 py-1 text-sm text-blue-600 border border-blue-600 rounded-full">Contact</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Average Cycle Time -->
+            <div class="bg-white p-6 rounded-xl shadow-sm col-span-2">
+                <h3 class="text-lg font-semibold mb-4">Average Cycle Time</h3>
+                <div class="grid grid-cols-3 gap-6">
+                    <div class="text-center">
+                        <div class="text-3xl font-bold text-blue-600">15</div>
+                        <div class="text-sm text-gray-500">Days</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-3xl font-bold text-green-600">45</div>
+                        <div class="text-sm text-gray-500">Tasks</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-3xl font-bold text-purple-600">12</div>
+                        <div class="text-sm text-gray-500">Projects</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Bar Chart for Content by Stage
+        const stageCtx = document.getElementById('stageChart').getContext('2d');
+        new Chart(stageCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Q1', 'Q2', 'Q3', 'Q4'],
+                datasets: [{
+                    label: 'Published',
+                    data: [65, 45, 35, 25],
+                    backgroundColor: '#3B82F6',
+                    borderRadius: 6,
+                }, {
+                    label: 'Draft',
+                    data: [30, 25, 20, 15],
+                    backgroundColor: '#F59E0B',
+                    borderRadius: 6,
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: {
+                            display: false
+                        }
+                    },
+                    x: {
+                        grid: {
+                            display: false
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    }
+                }
+            }
+        });
+
+        // Donut Chart for Content Planning
+        const planningCtx = document.getElementById('planningChart').getContext('2d');
+        new Chart(planningCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Planned', 'In Progress', 'Review'],
+                datasets: [{
+                    data: [45, 35, 20],
+                    backgroundColor: ['#3B82F6', '#F59E0B', '#10B981'],
+                    borderWidth: 0,
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    }
+                },
+                cutout: '70%'
+            }
+        });
+    </script>
+</body>
+</html> 
