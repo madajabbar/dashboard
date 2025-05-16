@@ -9,185 +9,267 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body class="bg-gray-50">
-    <div class="p-8">
+    <div class="p-4 md:p-8 max-w-[2000px] mx-auto">
         <!-- Header -->
         <div class="mb-8">
-            <h1 class="text-2xl font-bold text-gray-800">Dashboard</h1>
+            <h1 class="text-xl md:text-2xl font-bold text-gray-800">Dashboard</h1>
         </div>
 
         <!-- Top Stats -->
         <div class="mb-8">
             <div class="flex items-center gap-2 mb-2">
-                <h2 class="text-3xl font-bold">2,340</h2>
-                <span class="text-green-500 text-sm">+1.25% <span class="text-gray-500">vs last week</span></span>
+                <h2 class="text-2xl md:text-3xl font-bold" id="mainMetric">2,340</h2>
+                <span class="text-green-500 text-sm" id="growthIndicator">+1.25% <span class="text-gray-500">vs last week</span></span>
             </div>
         </div>
 
         <!-- Main Grid -->
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6">
             <!-- Content by Stage -->
-            <div class="bg-white p-6 rounded-xl shadow-sm">
-                <h3 class="text-lg font-semibold mb-4">Content by Stage</h3>
-                <div class="h-64">
+            <div class="bg-white p-4 md:p-6 rounded-xl shadow-sm">
+                <h3 class="text-base md:text-lg font-semibold mb-4">Content by Stage</h3>
+                <div class="h-48 md:h-64">
                     <canvas id="stageChart"></canvas>
                 </div>
             </div>
 
             <!-- Content Planning -->
-            <div class="bg-white p-6 rounded-xl shadow-sm">
-                <h3 class="text-lg font-semibold mb-4">Content Planning</h3>
-                <div class="h-64">
+            <div class="bg-white p-4 md:p-6 rounded-xl shadow-sm">
+                <h3 class="text-base md:text-lg font-semibold mb-4">Content Planning</h3>
+                <div class="h-48 md:h-64">
                     <canvas id="planningChart"></canvas>
                 </div>
             </div>
 
             <!-- Content by Type -->
-            <div class="bg-white p-6 rounded-xl shadow-sm">
-                <h3 class="text-lg font-semibold mb-4">Content by Type</h3>
-                <div class="space-y-4">
-                    <div class="flex items-center justify-between">
-                        <span class="text-gray-600">Instagram</span>
-                        <div class="flex items-center gap-2">
-                            <div class="w-48 h-2 bg-gray-200 rounded-full overflow-hidden">
-                                <div class="w-4/5 h-full bg-blue-500 rounded-full"></div>
-                            </div>
-                            <span class="text-sm text-gray-600">80%</span>
-                        </div>
-                    </div>
-                    <div class="flex items-center justify-between">
-                        <span class="text-gray-600">Facebook</span>
-                        <div class="flex items-center gap-2">
-                            <div class="w-48 h-2 bg-gray-200 rounded-full overflow-hidden">
-                                <div class="w-3/5 h-full bg-green-500 rounded-full"></div>
-                            </div>
-                            <span class="text-sm text-gray-600">60%</span>
-                        </div>
-                    </div>
-                    <div class="flex items-center justify-between">
-                        <span class="text-gray-600">TikTok</span>
-                        <div class="flex items-center gap-2">
-                            <div class="w-48 h-2 bg-gray-200 rounded-full overflow-hidden">
-                                <div class="w-2/5 h-full bg-yellow-500 rounded-full"></div>
-                            </div>
-                            <span class="text-sm text-gray-600">40%</span>
-                        </div>
-                    </div>
+            <div class="bg-white p-4 md:p-6 rounded-xl shadow-sm">
+                <h3 class="text-base md:text-lg font-semibold mb-4">Content by Type</h3>
+                <div class="space-y-4" id="contentTypeContainer">
+                    <!-- Progress bars will be dynamically inserted here -->
                 </div>
             </div>
 
             <!-- My Contacts -->
-            <div class="bg-white p-6 rounded-xl shadow-sm">
-                <h3 class="text-lg font-semibold mb-4">My Contacts</h3>
-                <div class="space-y-4">
-                    <div class="flex items-center justify-between">
-                        <div class="flex items-center gap-3">
-                            <div class="w-10 h-10 bg-gray-200 rounded-full"></div>
-                            <div>
-                                <p class="font-medium">Sarah Chen</p>
-                                <p class="text-sm text-gray-500">Financial Lead</p>
-                            </div>
-                        </div>
-                        <button class="px-3 py-1 text-sm text-blue-600 border border-blue-600 rounded-full">Contact</button>
-                    </div>
-                    <div class="flex items-center justify-between">
-                        <div class="flex items-center gap-3">
-                            <div class="w-10 h-10 bg-gray-200 rounded-full"></div>
-                            <div>
-                                <p class="font-medium">Alex Morgan</p>
-                                <p class="text-sm text-gray-500">Senior Tax CPA</p>
-                            </div>
-                        </div>
-                        <button class="px-3 py-1 text-sm text-blue-600 border border-blue-600 rounded-full">Contact</button>
-                    </div>
+            <div class="bg-white p-4 md:p-6 rounded-xl shadow-sm">
+                <h3 class="text-base md:text-lg font-semibold mb-4">My Contacts</h3>
+                <div class="space-y-4" id="contactsContainer">
+                    <!-- Contacts will be dynamically inserted here -->
                 </div>
             </div>
 
             <!-- Average Cycle Time -->
-            <div class="bg-white p-6 rounded-xl shadow-sm col-span-2">
-                <h3 class="text-lg font-semibold mb-4">Average Cycle Time</h3>
-                <div class="grid grid-cols-3 gap-6">
-                    <div class="text-center">
-                        <div class="text-3xl font-bold text-blue-600">15</div>
-                        <div class="text-sm text-gray-500">Days</div>
-                    </div>
-                    <div class="text-center">
-                        <div class="text-3xl font-bold text-green-600">45</div>
-                        <div class="text-sm text-gray-500">Tasks</div>
-                    </div>
-                    <div class="text-center">
-                        <div class="text-3xl font-bold text-purple-600">12</div>
-                        <div class="text-sm text-gray-500">Projects</div>
-                    </div>
+            <div class="bg-white p-4 md:p-6 rounded-xl shadow-sm col-span-1 lg:col-span-2">
+                <h3 class="text-base md:text-lg font-semibold mb-4">Average Cycle Time</h3>
+                <div class="grid grid-cols-3 gap-4 md:gap-6" id="cycleTimeContainer">
+                    <!-- Metrics will be dynamically inserted here -->
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-        // Bar Chart for Content by Stage
-        const stageCtx = document.getElementById('stageChart').getContext('2d');
-        new Chart(stageCtx, {
-            type: 'bar',
-            data: {
-                labels: ['Q1', 'Q2', 'Q3', 'Q4'],
-                datasets: [{
-                    label: 'Published',
-                    data: [65, 45, 35, 25],
-                    backgroundColor: '#3B82F6',
-                    borderRadius: 6,
-                }, {
-                    label: 'Draft',
-                    data: [30, 25, 20, 15],
-                    backgroundColor: '#F59E0B',
-                    borderRadius: 6,
-                }]
+        // Data structures
+        let dashboardData = {
+            mainMetric: 2340,
+            growth: 1.25,
+            contentStages: {
+                published: [65, 45, 35, 25],
+                draft: [30, 25, 20, 15]
             },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        grid: {
-                            display: false
+            contentPlanning: {
+                planned: 45,
+                inProgress: 35,
+                review: 20
+            },
+            contentTypes: [
+                { name: 'Instagram', percentage: 80, color: 'blue' },
+                { name: 'Facebook', percentage: 60, color: 'green' },
+                { name: 'TikTok', percentage: 40, color: 'yellow' }
+            ],
+            contacts: [
+                { name: 'Sarah Chen', role: 'Financial Lead' },
+                { name: 'Alex Morgan', role: 'Senior Tax CPA' }
+            ],
+            cycleTime: [
+                { value: 15, label: 'Days', color: 'blue' },
+                { value: 45, label: 'Tasks', color: 'green' },
+                { value: 12, label: 'Projects', color: 'purple' }
+            ]
+        };
+
+        // Chart instances
+        let stageChart, planningChart;
+
+        // Initialize all visualizations
+        function initializeCharts() {
+            // Bar Chart
+            const stageCtx = document.getElementById('stageChart').getContext('2d');
+            stageChart = new Chart(stageCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Q1', 'Q2', 'Q3', 'Q4'],
+                    datasets: [{
+                        label: 'Published',
+                        data: dashboardData.contentStages.published,
+                        backgroundColor: '#3B82F6',
+                        borderRadius: 6,
+                    }, {
+                        label: 'Draft',
+                        data: dashboardData.contentStages.draft,
+                        backgroundColor: '#F59E0B',
+                        borderRadius: 6,
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: { display: false }
+                        },
+                        x: {
+                            grid: { display: false }
                         }
                     },
-                    x: {
-                        grid: {
-                            display: false
-                        }
-                    }
-                },
-                plugins: {
-                    legend: {
-                        position: 'bottom'
+                    plugins: {
+                        legend: { position: 'bottom' }
                     }
                 }
-            }
+            });
+
+            // Donut Chart
+            const planningCtx = document.getElementById('planningChart').getContext('2d');
+            planningChart = new Chart(planningCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Planned', 'In Progress', 'Review'],
+                    datasets: [{
+                        data: [
+                            dashboardData.contentPlanning.planned,
+                            dashboardData.contentPlanning.inProgress,
+                            dashboardData.contentPlanning.review
+                        ],
+                        backgroundColor: ['#3B82F6', '#F59E0B', '#10B981'],
+                        borderWidth: 0,
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'bottom' }
+                    },
+                    cutout: '70%'
+                }
+            });
+        }
+
+        // Update functions for each component
+        function updateMainMetric(value, growth) {
+            document.getElementById('mainMetric').textContent = value.toLocaleString();
+            document.getElementById('growthIndicator').innerHTML = 
+                `${growth >= 0 ? '+' : ''}${growth.toFixed(2)}% <span class="text-gray-500">vs last week</span>`;
+        }
+
+        function updateContentTypes() {
+            const container = document.getElementById('contentTypeContainer');
+            container.innerHTML = dashboardData.contentTypes.map(type => `
+                <div class="flex items-center justify-between">
+                    <span class="text-gray-600">${type.name}</span>
+                    <div class="flex items-center gap-2">
+                        <div class="w-32 md:w-48 h-2 bg-gray-200 rounded-full overflow-hidden">
+                            <div class="h-full bg-${type.color}-500 rounded-full" style="width: ${type.percentage}%"></div>
+                        </div>
+                        <span class="text-sm text-gray-600">${type.percentage}%</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function updateContacts() {
+            const container = document.getElementById('contactsContainer');
+            container.innerHTML = dashboardData.contacts.map(contact => `
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-3">
+                        <div class="w-8 md:w-10 h-8 md:h-10 bg-gray-200 rounded-full"></div>
+                        <div>
+                            <p class="font-medium text-sm md:text-base">${contact.name}</p>
+                            <p class="text-xs md:text-sm text-gray-500">${contact.role}</p>
+                        </div>
+                    </div>
+                    <button class="px-3 py-1 text-xs md:text-sm text-blue-600 border border-blue-600 rounded-full">Contact</button>
+                </div>
+            `).join('');
+        }
+
+        function updateCycleTime() {
+            const container = document.getElementById('cycleTimeContainer');
+            container.innerHTML = dashboardData.cycleTime.map(metric => `
+                <div class="text-center">
+                    <div class="text-2xl md:text-3xl font-bold text-${metric.color}-600">${metric.value}</div>
+                    <div class="text-xs md:text-sm text-gray-500">${metric.label}</div>
+                </div>
+            `).join('');
+        }
+
+        // Function to simulate data updates
+        function simulateDataUpdates() {
+            setInterval(() => {
+                // Update main metric
+                dashboardData.mainMetric += Math.floor(Math.random() * 100) - 50;
+                dashboardData.growth = (Math.random() * 4) - 2;
+                updateMainMetric(dashboardData.mainMetric, dashboardData.growth);
+
+                // Update charts
+                dashboardData.contentStages.published = dashboardData.contentStages.published.map(
+                    val => Math.max(0, val + Math.floor(Math.random() * 10) - 5)
+                );
+                dashboardData.contentStages.draft = dashboardData.contentStages.draft.map(
+                    val => Math.max(0, val + Math.floor(Math.random() * 10) - 5)
+                );
+                stageChart.data.datasets[0].data = dashboardData.contentStages.published;
+                stageChart.data.datasets[1].data = dashboardData.contentStages.draft;
+                stageChart.update();
+
+                // Update planning chart
+                dashboardData.contentPlanning.planned = Math.floor(Math.random() * 30) + 30;
+                dashboardData.contentPlanning.inProgress = Math.floor(Math.random() * 20) + 25;
+                dashboardData.contentPlanning.review = Math.floor(Math.random() * 15) + 15;
+                planningChart.data.datasets[0].data = [
+                    dashboardData.contentPlanning.planned,
+                    dashboardData.contentPlanning.inProgress,
+                    dashboardData.contentPlanning.review
+                ];
+                planningChart.update();
+
+                // Update content types
+                dashboardData.contentTypes.forEach(type => {
+                    type.percentage = Math.min(100, Math.max(0, type.percentage + Math.floor(Math.random() * 10) - 5));
+                });
+                updateContentTypes();
+
+                // Update cycle time
+                dashboardData.cycleTime.forEach(metric => {
+                    metric.value = Math.max(0, metric.value + Math.floor(Math.random() * 6) - 3);
+                });
+                updateCycleTime();
+            }, 3000); // Update every 3 seconds
+        }
+
+        // Initialize everything
+        document.addEventListener('DOMContentLoaded', () => {
+            initializeCharts();
+            updateContentTypes();
+            updateContacts();
+            updateCycleTime();
+            simulateDataUpdates();
         });
 
-        // Donut Chart for Content Planning
-        const planningCtx = document.getElementById('planningChart').getContext('2d');
-        new Chart(planningCtx, {
-            type: 'doughnut',
-            data: {
-                labels: ['Planned', 'In Progress', 'Review'],
-                datasets: [{
-                    data: [45, 35, 20],
-                    backgroundColor: ['#3B82F6', '#F59E0B', '#10B981'],
-                    borderWidth: 0,
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        position: 'bottom'
-                    }
-                },
-                cutout: '70%'
-            }
+        // Handle responsive resize
+        window.addEventListener('resize', () => {
+            if (stageChart) stageChart.resize();
+            if (planningChart) planningChart.resize();
         });
     </script>
 </body>
